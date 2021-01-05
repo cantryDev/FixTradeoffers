@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "name": "FixTradeoffers",
+  "description": "This extension fixes the tradeoffers with the help of your apikey",
+  "version": "1.0.1",
+  "permissions": [
+    "*://steamcommunity.com/*/tradeoffers/",
+    "*://api.steampowered.com/*",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://steamcommunity.com/*/tradeoffers/",
+        "*://steamcommunity.com/*/tradeoffers"
+      ],
+      "js": [
+        "js/TradeOffersInjector.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}
