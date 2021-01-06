@@ -6,6 +6,12 @@ This chrome extension loads the tradeoffers with the help of your steamapikey wh
 
 <img alt="Showcase" src="https://github.com/cantryDev/FixTradeoffers/blob/master/Showcase.gif?raw=true">
 
+## Disclaimer
+
+SteamAPI sometimes returns weird data. Always doublecheck the trade in the actual tradeoffer window (when you click on one). 
+Visual bugs may appear.
+Use at your own risk.
+
 ## Installation
 
 ### Chrome
