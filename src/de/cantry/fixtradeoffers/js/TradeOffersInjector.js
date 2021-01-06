@@ -93,8 +93,17 @@ async function injectTradeOffersToDomFromAPI(apiKey) {
         return;
     }
 
+    let errors = 0;
+
     for (let tradeoffer in tradeOffers) {
         let currentOffer = tradeOffers[tradeoffer];
+
+        let itemsReceived = (currentOffer.items_to_receive) ? currentOffer.items_to_receive.length : 0;
+        let itemsGiven = (currentOffer.items_to_give) ? currentOffer.items_to_give.length : 0;
+        if((itemsGiven + itemsReceived) === 0){
+            errors++;
+            continue;
+        }
         tradeOfferSpace.appendChild(buildTradeOfferElement(currentOffer, descriptions, profileData.response.players));
         let tradeOfferSpacer = document.createElement("div");
         tradeOfferSpacer.className = "tradeoffer_rule";
@@ -115,15 +124,22 @@ async function injectTradeOffersToDomFromAPI(apiKey) {
 
     right_col.innerHTML = getRightProfileColHtml(amountReceived, amountSent);
 
-    let warning = document.createElement("h3");
-    warning.innerText = "Warning the TradeOffers got loaded with your apikey. Display errors may occur!"
-    warning.style.color = "orange";
-    warning.style.textAlign = "center";
+    let warningApiLoading = document.createElement("h3");
+    warningApiLoading.innerText = "Warning the TradeOffers got loaded with your apikey. Display errors may occur!"
+    warningApiLoading.style.color = "orange";
+    warningApiLoading.style.textAlign = "center";
 
-    document.getElementsByClassName("maincontent")[0].appendChild(warning);
+    if(errors > 0){
+        let warningErrors = document.createElement("h2");
+        warningErrors.innerText = (errors > 1 ) ? errors + " TradeOffers couldn't be loaded and are not displayed" : "1 TradeOffer couldn't be loaded and is not displayed";
+        warningErrors.style.color = "red";
+        warningErrors.style.textAlign = "center";
+
+        document.getElementsByClassName("maincontent")[0].appendChild(warningErrors);
+    }
+    document.getElementsByClassName("maincontent")[0].appendChild(warningApiLoading);
     document.getElementsByClassName("maincontent")[0].appendChild(right_col);
     document.getElementsByClassName("maincontent")[0].appendChild(tradeOfferSpace);
-
 
 }
 
