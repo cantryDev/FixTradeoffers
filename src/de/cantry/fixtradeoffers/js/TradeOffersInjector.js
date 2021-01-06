@@ -5,11 +5,11 @@ var observer = new MutationObserver(function (mutations, me) {
     var errorDetails = document.getElementsByClassName('profile_fatalerror_message')[0];
     if (errorDetails !== undefined) {
 
-        let element = document.createElement("link");
-        element.setAttribute("href", "https://steamcommunity-a.akamaihd.net/public/css/skin_1/profile_tradeoffers.css?v=YP3-1xEiIwFe&l=english");
-        element.setAttribute("rel", "stylesheet");
-        element.setAttribute("type", "text/css");
-        document.head.appendChild(element);
+        let cssElement = document.createElement("link");
+        cssElement.setAttribute("href", "https://steamcommunity-a.akamaihd.net/public/css/skin_1/profile_tradeoffers.css?v=YP3-1xEiIwFe&l=english");
+        cssElement.setAttribute("rel", "stylesheet");
+        cssElement.setAttribute("type", "text/css");
+        document.head.appendChild(cssElement);
 
         chrome.storage.local.get(["steamAPIKey"], async (storage) => {
             apiKey = storage.steamAPIKey;
@@ -303,7 +303,7 @@ function tradeOfferWithoutItems(tradeoffer, profileData) {
         <div class="tradeoffer_footer_actions">
             <a href="javascript:ShowTradeOffer( '${tradeoffer.tradeofferid}' );" class="whiteLink">Respond to Offer</a>
             |
-            <a href="javascript:DeclineTradeOffer( '${tradeoffer.tradeofferid}' );" class="whiteLink">Decline Trade</a>
+            <a href="javascript:ShowTradeOffer( '${tradeoffer.tradeofferid}' );" class="whiteLink">Decline Trade</a>
         </div>
         Offer expires at ${timeConverter(tradeoffer.expiration_time)}<div style="clear: right;"></div>
     </div>`

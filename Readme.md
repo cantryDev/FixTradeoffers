@@ -26,5 +26,6 @@ This chrome extension loads the tradeoffers with the help of your steamapikey wh
 
 ## Known Bugs
 
-- Tradeoffers can appear empty. (A page reload resolves this problem usually)
+- SteamAPI sometimes returns incomplete data (these tradeoffers will be hidden).
 - Other Extensions which manipulate the tradeoffers page wont change the page. 
+- Declining Tradeoffers only works on the tradeoffer page itself.
