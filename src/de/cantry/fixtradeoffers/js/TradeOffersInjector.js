@@ -264,7 +264,7 @@ function tradeOfferWithoutItems(tradeoffer, profileData) {
     </a>
     <div class="tradeoffer_partner">
         <div class="playerAvatar online" data-miniprofile="${steamid3}">
-            <a href="https://steamcommunity.com/profiles/76561199010596200">
+            <a href="https://steamcommunity.com/profiles/${steamid64}">
                 <img src="${profile.avatar}">
             </a>
         </div>
