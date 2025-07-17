@@ -1,7 +1,9 @@
 # FixTradeoffers
 
-This chrome extension loads the tradeoffers with the help of your steamapikey which is more stable.
-The extension only load the tradeoffers with the apikey if the page shows the loading error. Only then you have to enter your apikey once.
+This extension loads the tradeoffers with the help of your accessToken + apikey which is more stable.
+The extension only load the tradeoffers with accessToken + apikey if the page shows the loading error. Only then you have to enter your apikey once.
+The accessToken will be parsed from the Tradeofferpage automatically.
+
 
 ## Showcase
 
