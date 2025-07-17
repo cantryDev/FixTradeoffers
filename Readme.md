@@ -19,7 +19,7 @@ Use at your own risk.
 
 ### Chrome
 
-1. Download and unzip the zip file.
+1. Download and unzip the zip file. (Top Right -> Code -> Download ZIP) 
 2. Visit chrome://extensions (via omnibox or menu -> Tools -> Extensions).
 3. Enable Developer mode by ticking the checkbox in the upper-right corner.
 4. Click on the "Load unpacked extension..." button.
@@ -27,7 +27,7 @@ Use at your own risk.
 
 ### FireFox
 
-1. Download and unzip the zip file.
+1. Download and unzip the zip file. (Top Right -> Code -> Download ZIP)
 2. Visit about:addons (just copy it into the url bar).
 3. Click the gear icon.
 4. Install Addons from file.
