@@ -4,16 +4,17 @@ let iconResSuffix = "/96fx96f";
 var observer = new MutationObserver(function (mutations, me) {
     var errorDetails = document.getElementsByClassName('profile_fatalerror_message')[0];
     if (errorDetails !== undefined) {
-
         let cssElement = document.createElement("link");
         cssElement.setAttribute("href", "https://steamcommunity-a.akamaihd.net/public/css/skin_1/profile_tradeoffers.css?v=YP3-1xEiIwFe&l=english");
         cssElement.setAttribute("rel", "stylesheet");
         cssElement.setAttribute("type", "text/css");
         document.head.appendChild(cssElement);
-
         chrome.storage.local.get(["steamAPIKey"], async (storage) => {
-            apiKey = storage.steamAPIKey;
-            await injectTradeOffersToDomFromAPI(apiKey);
+            var apiKey = storage.steamAPIKey;
+            var accessToken = JSON.parse(document.getElementById("application_config").getAttribute("data-loyalty_webapi_token"))
+
+            await injectTradeOffersToDomFromAPI(accessToken, apiKey);
+
         });
 
         me.disconnect(); // stop observing
@@ -26,7 +27,7 @@ observer.observe(document, {
 });
 
 
-async function injectTradeOffersToDomFromAPI(apiKey) {
+async function injectTradeOffersToDomFromAPI(accessToken, apiKey) {
     if (apiKey === undefined) {
         //Wait Till dom is builed
         setTimeout(() => {
@@ -36,7 +37,7 @@ async function injectTradeOffersToDomFromAPI(apiKey) {
         return;
     }
 
-    const tradeOfferRequest = new Request(`https://api.steampowered.com/IEconService/GetTradeOffers/v1/?get_descriptions=1&active_only=1&get_received_offers=1&get_sent_offers=1&key=${apiKey}`);
+    const tradeOfferRequest = new Request(`https://api.steampowered.com/IEconService/GetTradeOffers/v1/?get_descriptions=1&active_only=1&get_received_offers=1&get_sent_offers=1&access_token=${accessToken}`);
 
     let tradeOfferData = await fetch(tradeOfferRequest)
         .then(response => {
@@ -125,7 +126,7 @@ async function injectTradeOffersToDomFromAPI(apiKey) {
     right_col.innerHTML = getRightProfileColHtml(amountReceived, amountSent);
 
     let warningApiLoading = document.createElement("h3");
-    warningApiLoading.innerText = "Warning the TradeOffers got loaded with your apikey. Display errors may occur!"
+    warningApiLoading.innerText = "Warning the TradeOffers got loaded via FixTradeoffers Extension. Display errors may occur. Other Extensions might wont work!"
     warningApiLoading.style.color = "orange";
     warningApiLoading.style.textAlign = "center";
 
@@ -147,7 +148,7 @@ function displayAPIKeyInput() {
     let tradeOfferSpace = document.getElementById("mainContents");
 
     let title = document.createElement("h2");
-    title.innerText = "This extension can load your tradeoffer with your apikey.";
+    title.innerText = "This extension can load your tradeoffer with your apikey + session Token.";
     title.style.textAlign = "center";
     let disclaimer = document.createElement("h3");
     disclaimer.style.color = "red";
@@ -185,11 +186,10 @@ function displayAPIKeyInput() {
 }
 
 function displayAPIKeyWrong() {
-
     let tradeOfferSpace = document.getElementById("mainContents");
 
     let title = document.createElement("h1");
-    title.innerText = "Your apikey is invalid. Try to set it again";
+    title.innerText = "Your access token/apikey is invalid or expired. Try to refresh the page.";
     title.style.textAlign = "center";
     tradeOfferSpace.appendChild(title);
     displayAPIKeyInput();
@@ -371,7 +371,7 @@ function getRightProfileColHtml(tradeOffersReceived, tradeOffersSent) {
 }
 
 function timeConverter(UNIX_timestamp) {
-    var a = new Date(UNIX_timestamp * 1000);
+    var a = new Date(   UNIX_timestamp * 1000);
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var year = a.getFullYear();
     var month = months[a.getMonth()];

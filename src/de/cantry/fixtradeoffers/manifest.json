@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "FixTradeoffers",
   "description": "This extension fixes the tradeoffers with the help of your apikey",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "permissions": [
     "storage"
   ],
